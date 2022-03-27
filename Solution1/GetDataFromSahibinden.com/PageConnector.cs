@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GetDataFromSahibinden.com
 {
-    public class PageConnector
+    public class PageConnector : IWebConnector
     {
         private WebClient client;
         public PageConnector()
@@ -17,8 +17,13 @@ namespace GetDataFromSahibinden.com
         }
         public string GetHtmlAsString(string pageUrl)
         {
-            Uri url = new Uri("https://www.sahibin.com/erkek-spor-ayakkabi-x-g2-c109?pi=9");
+            Uri url = new Uri(pageUrl);           
+            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+            client.Headers.Add("sec-ch-ua-platform", "Windows");
+            client.Headers.Add("referer", "https://www.sahibinden.com/");
+            client.Headers.Add("upgrade-insecure-requests", "1");
             return client.DownloadString(url);
+            
         }
         public HtmlDocument GetHtmlDocument(string html)
         {
