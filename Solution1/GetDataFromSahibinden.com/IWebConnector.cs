@@ -9,6 +9,7 @@ namespace GetDataFromSahibinden.com
 {
     public interface IWebConnector
     {
+        //web sitesi ile bağlantı kurabilmek için gerekli olan metodlar...
         public string GetHtmlAsString(string pageUrl);
         public HtmlDocument GetHtmlDocument(string html);
         public HtmlDocument GetHtmlDocumentByUrl(string pageUrl);

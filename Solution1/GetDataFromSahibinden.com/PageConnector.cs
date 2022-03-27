@@ -10,11 +10,13 @@ namespace GetDataFromSahibinden.com
 {
     public class PageConnector : IWebConnector
     {
+        
         private WebClient client;
         public PageConnector()
         {
             client = new WebClient();
         }
+        //url üzerindeki html dosyası string olarak alınır.
         public string GetHtmlAsString(string pageUrl)
         {
             Uri url = new Uri(pageUrl);           
@@ -31,6 +33,7 @@ namespace GetDataFromSahibinden.com
             htmlDocument.LoadHtml(html);
             return htmlDocument;
         }
+        //detay sayfaları için HtmlDocument url'lerini alir.
         public HtmlDocument GetHtmlDocumentByUrl(string pageUrl)
         {
             return GetHtmlDocument(GetHtmlAsString(pageUrl));

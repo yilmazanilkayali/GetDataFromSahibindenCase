@@ -14,7 +14,7 @@ namespace GetDataFromSahibinden.com
         private readonly string SHOWCASE_ITEMS_XPATH = "//*[@id='container']/div[3]/div/div[3]/div[3]/ul/li";
         private readonly string ITEM_PRICE_XPATH = "//*[@id='classifiedDetail']/div/div[2]/div[2]/h3";
         private readonly string ITEM_TITLE_XPATH = "//*[@id='classifiedDetail']/div/div[1]/h1";
-
+        
         public SahibindenConnector()
         {
             connector = new PageConnector();
@@ -23,9 +23,11 @@ namespace GetDataFromSahibinden.com
         {
             this.connector = connector;
         }
-        public void PrintShowcaseItems()
+        //Console'a  ve txt dosyaya yazdırma işlemi.
+        public List<string> PrintShowcaseItems()
         {
             List<string> itemUrls = GetShowCaseItemsUrls();
+            List<string> printContent = new List<string>();
             foreach (var itemUrl in itemUrls)
             {
                 HtmlDocument htmlDocument = connector.GetHtmlDocumentByUrl(itemUrl);
@@ -34,12 +36,16 @@ namespace GetDataFromSahibinden.com
                 if (htmlNodePrice != null && htmlNodeTitle != null)
                 {
                     string price = htmlNodePrice.GetDirectInnerText().Trim();
+                    printContent.Add(price);
                     string title = htmlNodeTitle.GetDirectInnerText().Trim();
+                    printContent.Add(title);
                     Console.WriteLine("İlan Başlığı: " + title + "| İlan Fiyati: " + price);
                 }
                     Thread.Sleep(2000);
             }
+            return printContent;
         }
+        //Data url'leri alınır.
         public List<string> GetShowCaseItemsUrls()
         {
             List<string> itemUrls = new List<string>();
